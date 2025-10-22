@@ -9,9 +9,14 @@ class CalendarConverter {
     // Correct year if before Ethiopian New Year (Sep 11 or Sep 12)
     DateTime newYear =
         DateTime(gDate.year, 9, _isGregorianLeapYear(gDate.year) ? 12 : 11);
-    if (gDate.isBefore(newYear)) {
-      eth[0] -= 1; // subtract a year
-    }
+
+    // The previouos implementation has a bug
+    final int calculatedEthYear =
+    (gDate.month > 9 || (gDate.month == 9 && gDate.day >= newYear.day))
+        ? (gDate.year - 7)
+        : (gDate.year - 8);
+            
+    eth[0] = calculatedEthYear;
 
     return eth;
   }
