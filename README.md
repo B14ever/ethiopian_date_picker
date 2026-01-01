@@ -38,7 +38,7 @@ Defaults to English if no localization is specified.
 Add this to your pubspec.yaml file:
 
 dependencies:
-  ethiopian_date_picker: ^0.0.1 # Use the latest version
+  ethiopian_date_picker: ^0.1.0 # Significant update with robust conversion
 
 Then, run flutter pub get to fetch the package.
 
@@ -85,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
       initialDate: _selectedDate ?? DateTime.now(),
       firstDate: DateTime(2023, 1, 1), // Gregorian start date for range
       lastDate: DateTime(2025, 12, 31), // Gregorian end date for range
-      localization: EthiopianDatePickerLocalization.AM, // Example: for Amharic
+      localization: EthiopianDatePickerLocalization.am, // Example: for Amharic
     );
 
     if (picked != null && picked != _selectedDate) {
@@ -131,20 +131,22 @@ The localization parameter in showEthiopianDatePicker allows you to specify the 
 
 Available localizations (from EthiopianDatePickerLocalization enum):
 
-EthiopianDatePickerLocalization.US (English - Default)
+`EthiopianDatePickerLocalization.us` (English - Default)
 
-EthiopianDatePickerLocalization.AM (Amharic)
+`EthiopianDatePickerLocalization.am` (Amharic)
 
-EthiopianDatePickerLocalization.OR (Oromiffa)
+`EthiopianDatePickerLocalization.or` (Oromiffa)
 
-EthiopianDatePickerLocalization.TI (Tigrinya)
+`EthiopianDatePickerLocalization.ti` (Tigrinya)
 
-EthiopianDatePickerLocalization.SI (Sidama - Note: Please provide accurate translations in localization_data.dart)
+`EthiopianDatePickerLocalization.si` (Sidama)
 
-EthiopianDatePickerLocalization.SO (Somali - Note: Please provide accurate translations in localization_data.dart)
+`EthiopianDatePickerLocalization.so` (Somali)
 
 💡 How it Works (Key Insight)
-The ethiopian_date_picker package bridges the gap between Gregorian and Ethiopian calendars. When you provide DateTime objects (Gregorian) for initial dates or range constraints, the picker intelligently converts them to Ethiopian for display. When a user makes a selection in the Ethiopian calendar, the chosen date is automatically converted back to a Gregorian DateTime object and returned to your application. This seamless bidirectional conversion allows you to work primarily with Gregorian dates in your app while offering a fully localized Ethiopian date selection experience to your users.
+The ethiopian_date_picker package bridges the gap between Gregorian and Ethiopian calendars using robust mathematical formulas that handle the 4-year cycle (365, 365, 366, 365 days) indefinitely. This ensures accuracy during leap years and New Year transitions without needing manual updates.
+
+When you provide DateTime objects (Gregorian) for initial dates or range constraints, the picker intelligently converts them to Ethiopian for display. When a user makes a selection in the Ethiopian calendar, the chosen date is automatically converted back to a Gregorian DateTime object and returned to your application. This seamless bidirectional conversion allows you to work primarily with Gregorian dates in your app while offering a fully localized Ethiopian date selection experience to your users.
 
 🛣️ What's Next? (Follow for more!)
 This is just the beginning for ethiopian_date_picker! I'm planning to add more exciting features and enhancements to make it even more powerful and versatile.

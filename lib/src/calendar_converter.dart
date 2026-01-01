@@ -1,37 +1,17 @@
 class CalendarConverter {
-  static const int _ethiopianEpoch = 1723856;
+  static const int _ethiopianEpoch = 1724221; // Meskerem 1, 1 EC
 
   /// Converts a Gregorian [DateTime] to Ethiopian [year, month, day]
   static List<int> toEthiopian(DateTime gDate) {
     int jd = _gregorianToJD(gDate.year, gDate.month, gDate.day);
-    List<int> eth = _jdToEthiopian(jd);
-
-    // Correct year if before Ethiopian New Year (Sep 11 or Sep 12)
-    DateTime newYear =
-        DateTime(gDate.year, 9, _isGregorianLeapYear(gDate.year) ? 12 : 11);
-    if (gDate.isBefore(newYear)) {
-      eth[0] -= 1; // subtract a year
-    }
-
-    return eth;
-  }
-
-  static bool _isGregorianLeapYear(int year) {
-    return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+    return _jdToEthiopian(jd);
   }
 
   static DateTime toGregorian(int year, int month, int day) {
     int jd = _ethiopianToJD(year, month, day);
-    DateTime gDate = _jdToGregorian(jd);
-
-    // Ethiopian year starts in Sep, so Meskerem (month 1) is in Sep of previous Gregorian year
-    // If Ethiopian month is 1–4 (roughly Sep–Dec), adjust forward if needed
-    if (month <= 4 && gDate.month < 9) {
-      gDate = DateTime(gDate.year + 1, gDate.month, gDate.day);
-    }
-
-    return gDate;
+    return _jdToGregorian(jd);
   }
+
   // -------------------------------
   // Internal: Julian Day converters
   // -------------------------------
@@ -66,19 +46,23 @@ class CalendarConverter {
     return DateTime(year, month, day);
   }
 
+  /// Ethiopian to Julian Day
   static int _ethiopianToJD(int year, int month, int day) {
-    int jd =
-        _gregorianToJD(year + 7, 9, 11); // Ethiopian year starts on Sep 11 (GC)
-    return jd + 30 * (month - 1) + (day - 1);
+    int y = year - 1;
+    int n = 365 * y + (y + 1) ~/ 4 + 30 * (month - 1) + (day - 1);
+    return n + _ethiopianEpoch;
   }
 
   /// Julian Day to Ethiopian
   static List<int> _jdToEthiopian(int jd) {
-    int r = (jd - _ethiopianEpoch) % 1461;
-    int n = (r % 365) + 365 * (r ~/ 1460);
-    int year = 4 * ((jd - _ethiopianEpoch) ~/ 1461) + (r ~/ 365) + 1;
-    int month = (n ~/ 30) + 1;
-    int day = (n % 30) + 1;
-    return [year, month, day];
+    int n = jd - _ethiopianEpoch;
+    int year = (4 * n + 1) ~/ 1461;
+    int daysInPreviousYears = 365 * year + (year + 1) ~/ 4;
+    int remainingDays = n - daysInPreviousYears;
+
+    int month = (remainingDays ~/ 30) + 1;
+    int day = (remainingDays % 30) + 1;
+
+    return [year + 1, month, day];
   }
 }

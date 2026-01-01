@@ -32,9 +32,7 @@ class _PickerDemoPageState extends State<PickerDemoPage> {
     final DateTime? picked = await showEthiopianDatePicker(
       context: context,
       initialDate: _selectedDate,
-      firstDate: DateTime(2017, 10, 26), // Example first day (Gregorian)
-      lastDate: DateTime(2025, 6, 28),
-      localization: EthiopianDatePickerLocalization.or,
+      localization: EthiopianDatePickerLocalization.am,
     );
 
     if (picked != null) {

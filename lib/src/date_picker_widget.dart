@@ -173,9 +173,6 @@ class _EthiopianDatePickerState extends State<EthiopianDatePicker> {
       final eth = CalendarConverter.toEthiopian(date);
       _selectedDate = EthiopianDate(eth[0], eth[1], eth[2]);
     }
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      widget.onSelectedDateChanged?.call(_selectedDate);
-    });
   }
 
   EthiopianDate _resolveInitialDate() {

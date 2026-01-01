@@ -89,19 +89,16 @@ class CalendarGrid extends StatelessWidget {
     for (int i = 1; i <= daysInMonth; i++) {
       final currentDate = EthiopianDate(year, month, i);
 
-      final isSelected = selectedDate != null && selectedDate == currentDate;
+      final isSelected = selectedDate == currentDate;
       final isFirstDay = firstDay != null && firstDay == currentDate;
 
       // Determine if the date is out of range
-      final bool isBeforeFirstDay =
-          firstDay != null && _isBefore(currentDate, firstDay!);
-      final bool isAfterLastDay =
-          lastDay != null && _isAfter(currentDate, lastDay!);
-      final bool isDisabled = isBeforeFirstDay || isAfterLastDay;
+      final bool isDisabled = (firstDay != null && _isBefore(currentDate, firstDay!)) ||
+          (lastDay != null && _isAfter(currentDate, lastDay!));
 
       BoxDecoration? decoration;
       Color? textColor;
-      Function()? onTapHandler;
+      VoidCallback? onTapHandler;
 
       if (isSelected) {
         decoration = const BoxDecoration(
@@ -129,15 +126,16 @@ class CalendarGrid extends StatelessWidget {
       }
 
       days.add(
-        GestureDetector(
+        InkWell(
           onTap: onTapHandler,
+          borderRadius: BorderRadius.circular(20),
           child: Container(
             alignment: Alignment.center,
             margin: const EdgeInsets.all(4),
             decoration: decoration,
             child: Text(
               '$i',
-              style: TextStyle(color: textColor),
+              style: TextStyle(color: textColor, fontWeight: isSelected ? FontWeight.bold : null),
             ),
           ),
         ),
