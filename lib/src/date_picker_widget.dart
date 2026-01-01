@@ -52,7 +52,7 @@ Future<DateTime?> showEthiopianDatePicker({
   }
 
   final ValueNotifier<EthiopianDate?> selectedDateNotifier =
-      ValueNotifier(null);
+      ValueNotifier(_resolveInitialEthiopianDate(initialDate));
   final appLocalizations =
       CalendarLocalizations(localization); // Create instance here
 
@@ -161,6 +161,7 @@ EthiopianDate? _resolveInitialEthiopianDate(DateTime? initialGregorianDate) {
 class _EthiopianDatePickerState extends State<EthiopianDatePicker> {
   late EthiopianDate _displayedDate;
   EthiopianDate? _selectedDate;
+  late EthiopianDate _today;
   final GlobalKey calendarGridKey = GlobalKey();
 
   @override
@@ -168,6 +169,10 @@ class _EthiopianDatePickerState extends State<EthiopianDatePicker> {
     super.initState();
 
     _displayedDate = _resolveInitialDate();
+    final now = DateTime.now();
+    final ethNow = CalendarConverter.toEthiopian(now);
+    _today = EthiopianDate(ethNow[0], ethNow[1], ethNow[2]);
+
     if (widget.initialDate != null) {
       final date = widget.initialDate as DateTime;
       final eth = CalendarConverter.toEthiopian(date);
@@ -236,6 +241,7 @@ class _EthiopianDatePickerState extends State<EthiopianDatePicker> {
             selectedDate: _selectedDate,
             firstDay: widget.firstDay,
             lastDay: widget.lastDay,
+            today: _today,
             localization: widget.localization, // Pass localization
           )
         ],

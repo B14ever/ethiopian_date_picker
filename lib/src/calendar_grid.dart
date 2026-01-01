@@ -12,6 +12,7 @@ class CalendarGrid extends StatelessWidget {
   final EthiopianDate? selectedDate;
   final EthiopianDate? firstDay;
   final EthiopianDate? lastDay;
+  final EthiopianDate? today;
   final EthiopianDatePickerLocalization localization; // New parameter
 
   const CalendarGrid({
@@ -22,6 +23,7 @@ class CalendarGrid extends StatelessWidget {
     this.selectedDate,
     this.firstDay,
     this.lastDay,
+    this.today,
     this.localization = EthiopianDatePickerLocalization.us, // Default
   });
 
@@ -90,11 +92,12 @@ class CalendarGrid extends StatelessWidget {
       final currentDate = EthiopianDate(year, month, i);
 
       final isSelected = selectedDate == currentDate;
-      final isFirstDay = firstDay != null && firstDay == currentDate;
+      final isToday = today == currentDate;
 
       // Determine if the date is out of range
-      final bool isDisabled = (firstDay != null && _isBefore(currentDate, firstDay!)) ||
-          (lastDay != null && _isAfter(currentDate, lastDay!));
+      final bool isDisabled =
+          (firstDay != null && _isBefore(currentDate, firstDay!)) ||
+              (lastDay != null && _isAfter(currentDate, lastDay!));
 
       BoxDecoration? decoration;
       Color? textColor;
@@ -107,13 +110,12 @@ class CalendarGrid extends StatelessWidget {
         );
         textColor = Colors.white;
         onTapHandler = () => onDateSelected(currentDate);
-      } else if (isFirstDay) {
+      } else if (isToday) {
         decoration = BoxDecoration(
-          color: Colors.lightBlue.shade200,
-          borderRadius: BorderRadius.circular(6),
-          border: Border.all(color: Colors.blue.shade700),
+          shape: BoxShape.circle,
+          border: Border.all(color: const Color(0xFF228D4D), width: 1),
         );
-        textColor = Colors.black;
+        textColor = const Color(0xFF228D4D);
         onTapHandler = () => onDateSelected(currentDate);
       } else if (isDisabled) {
         decoration = null;

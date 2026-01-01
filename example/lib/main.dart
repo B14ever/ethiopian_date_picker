@@ -26,7 +26,7 @@ class PickerDemoPage extends StatefulWidget {
 }
 
 class _PickerDemoPageState extends State<PickerDemoPage> {
-  DateTime? _selectedDate;
+  DateTime? _selectedDate = DateTime.now();
 
   Future<void> _showDatePicker() async {
     final DateTime? picked = await showEthiopianDatePicker(
