@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 0.0.7 - 2026-02-27
+
+### 🐛 Bug Fixes
+- **Calendar Visibility Fix**: Fixed an issue where the calendar grid would disappear when `scrollable: true` was used in `AlertDialog`.
+- **Enhanced Scrolling**: Implemented internal scrolling within the date picker widget for better stability and keyboard handling.
+
 ## 0.0.6 - 2026-02-27
 
 ### 🐛 Bug Fixes & UI Improvements

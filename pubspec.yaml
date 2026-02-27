@@ -1,6 +1,6 @@
 name: ethiopian_date_picker
 description: A customizable Ethiopian date picker for Flutter with localization.
-version: 0.0.6 # Significant update with robust conversion and localization
+version: 0.0.7 # Significant update with robust conversion and localization
 homepage: https://github.com/B14ever/ethiopian_date_picker # IMPORTANT: Replace with your actual GitHub repository URL
 repository: https://github.com/B14ever/ethiopian_date_picker # IMPORTANT: Replace with your actual GitHub repository URL
 issue_tracker: https://github.com/B14ever/ethiopian_date_picker/issues # IMPORTANT: Replace with your actual GitHub repository URL

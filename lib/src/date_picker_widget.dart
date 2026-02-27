@@ -212,8 +212,9 @@ class _EthiopianDatePickerState extends State<EthiopianDatePicker> {
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: const BoxConstraints(maxWidth: 320),
+    return SizedBox(
+      width: 320,
+      height: 370,
       child: Column(
         children: [
           PickerHeader(
