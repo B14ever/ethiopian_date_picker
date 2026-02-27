@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 0.0.6 - 2026-02-27
+
+### 🐛 Bug Fixes & UI Improvements
+- **Keyboard Layout Fix**: Resolved a layout breakdown issue where the dialog would overflow or become inaccessible when the software keyboard was active.
+- **Scrollable Dialog**: Enabled vertical scrolling within the date picker dialog to maintain accessibility in space-constrained environments.
+- **Improved Adaptive Layout**: Replaced fixed height constraints with flexible constraints and enabled proper Safe Area handling for better device compatibility.
+
 ## 0.1.0 - 2026-01-01
 
 ### ✨ Major Logic & Reliability Improvements

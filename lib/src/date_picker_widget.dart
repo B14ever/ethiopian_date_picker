@@ -57,12 +57,12 @@ Future<DateTime?> showEthiopianDatePicker({
       CalendarLocalizations(localization); // Create instance here
 
   return showDialog<DateTime>(
-    useSafeArea: false,
+    useSafeArea: true,
     context: context,
     builder: (BuildContext dialogContext) {
       return AlertDialog(
+        scrollable: true,
         backgroundColor: Colors.white,
-        insetPadding: EdgeInsets.zero,
         contentPadding: const EdgeInsets.only(left: 5, right: 5),
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -212,9 +212,8 @@ class _EthiopianDatePickerState extends State<EthiopianDatePicker> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 320,
-      height: 370,
+    return ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 320),
       child: Column(
         children: [
           PickerHeader(
